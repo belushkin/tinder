@@ -1,5 +1,7 @@
 package com.app;
 
+import com.app.dao.Dao;
+import com.app.dao.ProfileDao;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -42,6 +44,9 @@ public class UsersServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+        Dao dao = new ProfileDao(Config.INSTANCE.getProperties());
+
         String submit = req.getParameter("submit");
         String userId = req.getParameter("user_id");
 

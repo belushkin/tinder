@@ -1,20 +1,26 @@
 package com.app.dao;
 
-import com.app.model.Like;
-import com.app.model.Message;
-import com.app.model.User;
+import com.app.entities.Like;
+import com.app.entities.Message;
+import com.app.entities.User;
 import java.util.List;
 
-public interface Dao {
+public interface Dao <T> {
 
-    public List<User> getUsers();
+    public List<T> getAll();
 
-    public void update(User current, User candidate);
+    public T add(T value);
 
-    public List<Message> getAllMessagesByUser(User user);
+    public T findById(int id);
 
-    public List<Like> getLikedProfilesByUser(User user);
-
-    public void createUser(User user);
+//    public List<User> list();
+//
+//    public void update(User current, User candidate);
+//
+//    public List<Message> getAllMessagesByUser(User user);
+//
+//    public List<Like> getLikedProfilesByUser(User user);
+//
+//    public void createUser(User user);
 
 }

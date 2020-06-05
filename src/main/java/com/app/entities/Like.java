@@ -1,4 +1,4 @@
-package com.app.model;
+package com.app.entities;
 
 public class Like {
     private User who;

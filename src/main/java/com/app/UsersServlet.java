@@ -1,7 +1,5 @@
 package com.app;
 
-import com.app.dao.Dao;
-import com.app.dao.ProfileDao;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;

@@ -1,7 +1,7 @@
 package com.app.dao;
 
 import com.app.Config;
-import com.app.model.Person;
+import com.app.model.User;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,20 +17,20 @@ public class ProfileDao implements Dao {
         this.properties = properties;
     }
 
-    public void create(Person p) {
-        try(Connection con = getConnection();) {
-            Statement statement = con.createStatement();
-            String sql = String.format("INSERT INTO persons(name, age) VALUES('%s', %s)",
-                    p.getName(), p.getAge());
-
-            statement.execute(sql);
-        } catch (Exception ex){
-            throw new RuntimeException(ex);
-        }
-    }
+//    public void create(Person p) {
+//        try(Connection con = getConnection();) {
+//            Statement statement = con.createStatement();
+//            String sql = String.format("INSERT INTO persons(name, age) VALUES('%s', %s)",
+//                    p.getName(), p.getAge());
+//
+//            statement.execute(sql);
+//        } catch (Exception ex){
+//            throw new RuntimeException(ex);
+//        }
+//    }
 
     private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:postgres://database-1.cl2n834aix67.us-east-1.rds.amazonaws.com:3306/myjdbc?useSSL=false","root","11111111");
+        return DriverManager.getConnection("jdbc:postgres://database-1.cl2n834aix67.us-east-1.rds.amazonaws.com:5432/myjdbc","postgres","LhlyOD1JvL2XnLHO2xoE");//?useSSL=false
     }
 
 }

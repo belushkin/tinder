@@ -1,0 +1,34 @@
+CREATE DATABASE tinder;
+
+create table users (
+	id serial PRIMARY KEY,
+	name varchar(100) NOT NULL,
+	job varchar(100) NOT NULL,
+	username varchar(10) UNIQUE NOT NULL,
+	password varchar(15) NOT NULL,
+	last_login timestamp NOT NULL
+);
+
+create table liked (
+	user_id integer REFERENCES users(id) NOT NULL,
+	user_liked_id integer REFERENCES users(id) NOT NULL,
+	PRIMARY KEY(user_id, user_liked_id)
+);
+
+create table messages (
+	id serial PRIMARY KEY,
+	text varchar(1000) NOT NULL,
+	from_user_id integer REFERENCES users(id) NOT NULL,
+	to_user_id integer REFERENCES users(id) NOT NULL,
+	timestamp timestamp default current_timestamp
+);
+
+ALTER TABLE users ALTER COLUMN last_login DROP NOT NULL;
+
+INSERT INTO users (name, job, username, password)
+VALUES
+('Natasha', 'President', 'nata', 'nata'),
+('Dasha', 'Director', 'dasha', 'dasha'),
+('Olya', 'Manager', 'olga', 'olga'),
+('Galya', 'Beauty', 'gal', 'gal'),
+('Valya', 'Noname', 'val', 'val');

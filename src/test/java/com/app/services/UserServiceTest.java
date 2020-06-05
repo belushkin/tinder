@@ -2,15 +2,14 @@ package com.app.services;
 
 import com.app.dao.UserDao;
 import com.app.entities.User;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
+
+import static org.mockito.Matchers.anyInt;
 
 public class UserServiceTest {
 
@@ -34,7 +33,7 @@ public class UserServiceTest {
         userService.findById(1);
 
         // then
-        Mockito.verify(userDao).findById(1);
+        Mockito.verify(userDao).findById(anyInt());
     }
 
     @Test

@@ -1,6 +1,5 @@
 package com.app.dao;
 
-import com.app.entities.Like;
 import com.app.entities.Message;
 import com.app.entities.User;
 import java.util.List;
@@ -9,7 +8,7 @@ public interface Dao <T> {
 
     public List<T> getAll();
 
-    public T add(T value);
+    public void add(T value);
 
     public T findById(int id);
 

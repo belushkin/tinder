@@ -25,4 +25,8 @@ List databases
 \l
 
 Connect to database
-\c dev_ms_general
+\c tinder
+
+Expanded view:
+\x
+select * from sometable;

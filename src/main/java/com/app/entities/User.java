@@ -1,11 +1,39 @@
 package com.app.entities;
 
 public class User {
+    private int id;
     private String name;
+    private String picture;
     private String job;
     private String username;
     private String password;
-    private String lastLogin;
+
+    public User() {
+    }
+
+    public User(int id, String name, String picture, String job, String username) {
+        this.id = id;
+        this.name = name;
+        this.picture = picture;
+        this.job = job;
+        this.username = username;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 
     public String getName() {
         return name;
@@ -39,23 +67,13 @@ public class User {
         this.password = password;
     }
 
-    public String getLastLogin() {
-        return lastLogin;
-    }
-
-    public void setLastLogin(String lastLogin) {
-        this.lastLogin = lastLogin;
-    }
-
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", job='" + job + '\'' +
                 ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", lastLogin='" + lastLogin + '\'' +
                 '}';
     }
-
 }

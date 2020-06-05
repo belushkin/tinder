@@ -25,11 +25,10 @@ public class DbConnectionTest {
     }
 
     @Test
-    public void testMockDBConnection() throws Exception {
+    public void test_mock_db_connection() throws Exception {
         Mockito.when(mockConnection.createStatement()).thenReturn(mockStatement);
         Mockito.when(mockConnection.createStatement().execute((String) Mockito.any())).thenReturn(true);
-        boolean value = dbConnection.execute("");
-        Assert.assertTrue(value);
-        Mockito.verify(mockConnection.createStatement(), Mockito.times(1));
+
+        Assert.assertTrue(dbConnection.execute(""));
     }
 }

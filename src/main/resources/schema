@@ -5,8 +5,7 @@ create table users (
 	name varchar(100) NOT NULL,
 	job varchar(100) NOT NULL,
 	username varchar(10) UNIQUE NOT NULL,
-	password varchar(15) NOT NULL,
-	last_login timestamp NOT NULL
+	password varchar(15) NOT NULL
 );
 
 create table liked (
@@ -23,12 +22,25 @@ create table messages (
 	timestamp timestamp default current_timestamp
 );
 
-ALTER TABLE users ALTER COLUMN last_login DROP NOT NULL;
+create table login_time (
+	id serial PRIMARY KEY,
+	user_id integer REFERENCES users(id) NOT NULL,
+	timestamp timestamp default current_timestamp
+);
 
-INSERT INTO users (name, job, username, password)
+ALTER TABLE users ALTER COLUMN last_login DROP NOT NULL;
+ALTER TABLE users DROP COLUMN last_login;
+ALTER TABLE users ADD COLUMN picture VARCHAR(500) NULL;
+ALTER TABLE users ADD COLUMN timestamp timestamp default current_timestamp;
+ALTER TABLE users ALTER COLUMN picture TYPE varchar(1000);
+ALTER TABLE users ALTER COLUMN password TYPE varchar(100);
+
+
+INSERT INTO users (name, job, username, password, picture)
 VALUES
-('Natasha', 'President', 'nata', 'nata'),
-('Dasha', 'Director', 'dasha', 'dasha'),
-('Olya', 'Manager', 'olga', 'olga'),
-('Galya', 'Beauty', 'gal', 'gal'),
-('Valya', 'Noname', 'val', 'val');
+('Natasha', 'President', 'nata', md5('nata'), 'https://media.gettyimages.com/photos/portrait-teenager-picture-id846730696?s=2048x2048'),
+('Dasha', 'Director', 'dasha', md5('dasha'), 'https://media.gettyimages.com/photos/beautiful-girl-dancing-to-the-music-picture-id1028497410?s=2048x2048'),
+('Olya', 'Manager', 'olga', md5('olga'), 'https://media.gettyimages.com/photos/beautiful-woman-picture-id927570754?s=2048x2048'),
+('Galya', 'Beauty', 'gal', md5('gal'), 'https://media.gettyimages.com/photos/smiling-young-girl-picture-id904234860?s=2048x2048'),
+('Valya', 'Noname', 'val', md5('val'), 'https://media.gettyimages.com/photos/smiling-female-young-college-student-of-indian-ethnicity-picture-id578811112?s=2048x2048');
+

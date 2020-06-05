@@ -11,9 +11,9 @@ import org.mockito.MockitoAnnotations;
 import java.sql.Connection;
 import java.sql.Statement;
 
-public class ConnectionFactoryTest {
+public class DbConnectionTest {
     @InjectMocks
-    private ConnectionFactory connectionFactory;
+    private DbConnection dbConnection;
     @Mock
     private Connection mockConnection;
     @Mock
@@ -28,7 +28,7 @@ public class ConnectionFactoryTest {
     public void testMockDBConnection() throws Exception {
         Mockito.when(mockConnection.createStatement()).thenReturn(mockStatement);
         Mockito.when(mockConnection.createStatement().execute((String) Mockito.any())).thenReturn(true);
-        boolean value = connectionFactory.execute("");
+        boolean value = dbConnection.execute("");
         Assert.assertTrue(value);
         Mockito.verify(mockConnection.createStatement(), Mockito.times(1));
     }

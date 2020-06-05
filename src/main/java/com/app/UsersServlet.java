@@ -45,7 +45,7 @@ public class UsersServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        Dao dao = new ProfileDao(Config.INSTANCE.getProperties());
+//        Dao dao = new ProfileDao(Config.INSTANCE.getProperties());
 
         String submit = req.getParameter("submit");
         String userId = req.getParameter("user_id");

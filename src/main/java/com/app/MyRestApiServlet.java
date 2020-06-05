@@ -1,6 +1,6 @@
 package com.app;
 
-import com.app.model.Person;
+import com.app.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,10 +35,10 @@ public class MyRestApiServlet extends HttpServlet {
         System.out.println("I am in get");
         String name = req.getParameter("name");
         int age = Integer.parseInt(req.getParameter("age"));
-        Person person = new Person();
-        person.setAge(age);
-        person.setName(name);
-        resp.getWriter().append(person.toString());
+//        Person person = new Person();
+//        person.setAge(age);
+//        person.setName(name);
+//        resp.getWriter().append(person.toString());
     }
 
     @Override

@@ -34,6 +34,7 @@ ALTER TABLE users ADD COLUMN picture VARCHAR(500) NULL;
 ALTER TABLE users ADD COLUMN timestamp timestamp default current_timestamp;
 ALTER TABLE users ALTER COLUMN picture TYPE varchar(1000);
 ALTER TABLE users ALTER COLUMN password TYPE varchar(100);
+ALTER TABLE users ADD COLUMN next integer NOT NULL DEFAULT 0;
 
 
 INSERT INTO users (name, job, username, password, picture)
@@ -43,4 +44,10 @@ VALUES
 ('Olya', 'Manager', 'olga', md5('olga'), 'https://media.gettyimages.com/photos/beautiful-woman-picture-id927570754?s=2048x2048'),
 ('Galya', 'Beauty', 'gal', md5('gal'), 'https://media.gettyimages.com/photos/smiling-young-girl-picture-id904234860?s=2048x2048'),
 ('Valya', 'Noname', 'val', md5('val'), 'https://media.gettyimages.com/photos/smiling-female-young-college-student-of-indian-ethnicity-picture-id578811112?s=2048x2048');
+
+UPDATE users SET next = 12 WHERE id = 11;
+UPDATE users SET next = 13 WHERE id = 12;
+UPDATE users SET next = 14 WHERE id = 13;
+UPDATE users SET next = 15 WHERE id = 14;
+UPDATE users SET next = 11 WHERE id = 15;
 

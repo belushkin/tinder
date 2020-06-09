@@ -1,17 +1,32 @@
 package com.app.dao;
 
 import java.sql.*;
+import java.util.Properties;
 
 public class DbConnection {
 
     private Connection dbConnection;
+    private Properties properties;
+
+    public DbConnection(Properties properties) {
+        this.properties = properties;
+    }
 
     public void getConnection() {
         try {
             dbConnection =  DriverManager.getConnection(
-                    "jdbc:postgresql://database-1.cl2n834aix67.us-east-1.rds.amazonaws.com:5432/tinder",
-                    "postgres",
-                    "LhlyOD1JvL2XnLHO2xoE");//?useSSL=false
+                    properties.get("DB_API") +
+                            ":" +
+                            properties.get("DB_DRIVER") +
+                            "://" +
+                            properties.get("DB_ENDPOINT") +
+                            ":" +
+                            properties.get("DB_PORT") +
+                            "/" +
+                            properties.get("DB_DATABASE"),
+                    properties.get("DB_USER").toString(),
+                    properties.get("DB_PASSWORD").toString()
+            );
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

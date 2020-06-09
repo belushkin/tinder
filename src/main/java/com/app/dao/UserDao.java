@@ -20,10 +20,25 @@ public class UserDao implements Dao<User> {
 
     @Override
     public List<User> getAll() {
-        MyLogger.info("retrieve all users");
+        MyLogger.info("Find all users");
 
         List<User> users = new ArrayList<>();
-        return users;
+        String sql = "SELECT * FROM users";
+        try {
+            ResultSet resultSet = this.dbConnection.executeQuery(sql);
+            while (resultSet.next()) {
+                users.add(new User(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("picture"),
+                        resultSet.getString("job"),
+                        resultSet.getString("username")
+                ));
+            }
+            return users;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
@@ -88,41 +103,5 @@ public class UserDao implements Dao<User> {
             throw new RuntimeException(ex);
         }
     }
-
-
-//
-//    public List<User> getUsers() {
-//        List<User> users = new ArrayList<>();
-//        return users;
-//    }
-//
-//    public void update(User current, User candidate) {
-//
-//    }
-//
-//    public List<Message> getAllMessagesByUser(User user) {
-//        List<Message> messages = new ArrayList<>();
-//        return messages;
-//    }
-//
-//    public List<Like> getLikedProfilesByUser(User user) {
-//        List<Like> profiles = new ArrayList<>();
-//        return profiles;
-//    }
-//
-//    public void createUser(User user) {
-//        try(Connection con = connection) {
-//            Statement statement = con.createStatement();
-//            String sql = String.format("INSERT INTO users(name, job, username, password) VALUES('%s', '%s', '%s', '%s')",
-//                    user.getName(),
-//                    user.getJob(),
-//                    user.getUsername(),
-//                    user.getPassword()
-//            );
-//            statement.execute(sql);
-//        } catch (Exception ex){
-//            throw new RuntimeException(ex);
-//        }
-//    }
 
 }

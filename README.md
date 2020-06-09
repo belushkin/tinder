@@ -29,4 +29,4 @@ Connect to database
 
 Expanded view:
 \x
-select * from sometable;
+select * from users;

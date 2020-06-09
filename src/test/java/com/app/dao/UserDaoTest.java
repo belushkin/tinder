@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 public class UserDaoTest {
     @InjectMocks
@@ -44,7 +45,7 @@ public class UserDaoTest {
         // when
         Mockito.when(mockConnection.
                 createStatement().
-                executeQuery((String) Mockito.any())
+                executeQuery(Mockito.any())
         ).
                 thenReturn(resultSetMock);
 
@@ -85,4 +86,32 @@ public class UserDaoTest {
 //        System.out.println(userDao.findById(6));
     }
 
+    @Test
+    public void test_find_all_users_with_mocked_result_set() throws Exception {
+        // given
+        Mockito.when(mockConnection.createStatement()).thenReturn(mockStatement);
+
+        UserDao userDao = new UserDao(dbConnection);
+
+        ResultSet resultSetMock = Mockito.mock(ResultSet.class);
+        Mockito.when(resultSetMock.getString("name")).thenReturn("Natasha");
+        Mockito.when(resultSetMock.getString("job")).thenReturn("Director");
+        Mockito.when(resultSetMock.getString("username")).thenReturn("nata");
+
+        Mockito.when(resultSetMock.next()).thenReturn(true).thenReturn(false);
+
+        // when
+        Mockito.when(mockConnection.
+                createStatement().
+                executeQuery(Mockito.any())
+        ).
+                thenReturn(resultSetMock);
+
+        List<User> users = userDao.getAll();
+
+        // then
+        Assert.assertEquals("Natasha", users.get(0).getName());
+        Assert.assertEquals("Director", users.get(0).getJob());
+        Assert.assertEquals("nata", users.get(0).getUsername());
+    }
 }

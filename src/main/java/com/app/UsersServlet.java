@@ -30,6 +30,7 @@ public class UsersServlet extends HttpServlet {
 
     @Override
     public void init() {
+        initJDBCDriver();
         initFreemarker();
         initProperties();
 
@@ -42,13 +43,14 @@ public class UsersServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Template template = configuration.getTemplate("templates/people-list.ftl");
 
-        User first = userDao.findFirst();
+        User firstUser = userDao.findFirst();
 
-        Map<String, Object> input = new HashMap<>();
+        Map<String, Object> templateData = new HashMap<>();
+        templateData.put("picture", firstUser.getPicture());
 
         PrintWriter pw = resp.getWriter();
         try (StringWriter out = new StringWriter()) {
-            template.process(input, out);
+            template.process(templateData, out);
             pw.append(out.getBuffer().toString());
             out.flush();
             pw.flush();
@@ -77,6 +79,14 @@ public class UsersServlet extends HttpServlet {
         try {
             properties = Config.INSTANCE.getProperties("/config.ini");
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initJDBCDriver() {
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

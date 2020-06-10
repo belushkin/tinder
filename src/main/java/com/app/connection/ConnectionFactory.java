@@ -24,7 +24,7 @@ public class ConnectionFactory {
                     properties.get("DB_PASSWORD").toString()
             );
         } catch (SQLException throwables) {
-            throw new RuntimeException("Can't connect to the database");
+            throw new RuntimeException("Can't connect to the database " + throwables.getMessage());
         }
     }
 }

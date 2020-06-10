@@ -31,7 +31,7 @@
                             <tr>
                                 <td width="10">
                                     <div class="avatar-img">
-                                        <img class="img-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhcCYW4QDWMOjOuUTxOd50KcJvK-rop9qE9zRltSbVS_bO-cfWA" />
+                                        <img class="img-circle" src="${picture}" />
                                     </div>
                                 </td>
                                 <td class="align-middle">

@@ -13,10 +13,10 @@ import java.util.List;
 
 public class UserDao implements Dao<User> {
 
-    private final DB dbConnection;
+    private final DB db;
 
-    public UserDao(DB dbConnection) {
-        this.dbConnection = dbConnection;
+    public UserDao(DB db) {
+        this.db = db;
     }
 
     @Override
@@ -26,14 +26,15 @@ public class UserDao implements Dao<User> {
         List<User> users = new ArrayList<>();
         String sql = "SELECT * FROM users";
         try {
-            ResultSet resultSet = this.dbConnection.executeQuery(sql);
+            ResultSet resultSet = this.db.executeQuery(sql);
             while (resultSet.next()) {
                 users.add(new User(
                         resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getString("picture"),
                         resultSet.getString("job"),
-                        resultSet.getString("username")
+                        resultSet.getString("username"),
+                        resultSet.getInt("next")
                 ));
             }
             return users;
@@ -54,7 +55,7 @@ public class UserDao implements Dao<User> {
                 user.getPassword(),
                 user.getPicture()
         );
-        this.dbConnection.execute(sql);
+        this.db.execute(sql);
     }
 
     public void addLastLoginTime(User user) {
@@ -63,7 +64,7 @@ public class UserDao implements Dao<User> {
         String sql = String.format(
                 "INSERT INTO login_time (user_id) VALUES (%s)", user.getId()
         );
-        this.dbConnection.execute(sql);
+        this.db.execute(sql);
     }
 
     public LocalDateTime getLastLoginTime(User user) {
@@ -73,7 +74,7 @@ public class UserDao implements Dao<User> {
                 "SELECT timestamp FROM login_time WHERE user_id = %s ORDER BY id DESC LIMIT 1", user.getId()
         );
         try {
-            ResultSet resultSet = this.dbConnection.executeQuery(sql);
+            ResultSet resultSet = this.db.executeQuery(sql);
             if (resultSet.next()) {
                 resultSet.getTimestamp("timestamp").toLocalDateTime();
             }
@@ -89,15 +90,9 @@ public class UserDao implements Dao<User> {
 
         String sql = String.format("SELECT * FROM users WHERE id = %s", id);
         try {
-            ResultSet resultSet = this.dbConnection.executeQuery(sql);
+            ResultSet resultSet = this.db.executeQuery(sql);
             if (resultSet.next()) {
-                return new User(
-                        resultSet.getInt("id"),
-                        resultSet.getString("name"),
-                        resultSet.getString("picture"),
-                        resultSet.getString("job"),
-                        resultSet.getString("username")
-                );
+                return hydrate(resultSet);
             }
             return null;
         } catch (SQLException ex) {
@@ -105,4 +100,29 @@ public class UserDao implements Dao<User> {
         }
     }
 
+    public User findFirst() {
+        MyLogger.info("Find first user");
+
+        String sql = String.format("SELECT * FROM users LIMIT 1");
+        try {
+            ResultSet resultSet = this.db.executeQuery(sql);
+            if (resultSet.next()) {
+                return hydrate(resultSet);
+            }
+            return null;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    private User hydrate(ResultSet resultSet) throws SQLException {
+        return new User(
+                resultSet.getInt("id"),
+                resultSet.getString("name"),
+                resultSet.getString("picture"),
+                resultSet.getString("job"),
+                resultSet.getString("username"),
+                resultSet.getInt("next")
+        );
+    }
 }

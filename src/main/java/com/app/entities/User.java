@@ -7,16 +7,18 @@ public class User {
     private String job;
     private String username;
     private String password;
+    private int next;
 
     public User() {
     }
 
-    public User(int id, String name, String picture, String job, String username) {
+    public User(int id, String name, String picture, String job, String username, int next) {
         this.id = id;
         this.name = name;
         this.picture = picture;
         this.job = job;
         this.username = username;
+        this.next = next;
     }
 
     public int getId() {
@@ -65,6 +67,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getNext() {
+        return next;
+    }
+
+    public void setNext(int next) {
+        this.next = next;
     }
 
     @Override

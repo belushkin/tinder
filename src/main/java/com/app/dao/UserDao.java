@@ -1,5 +1,6 @@
 package com.app.dao;
 
+import com.app.connection.DB;
 import com.app.entities.User;
 import com.app.utils.MyLogger;
 
@@ -12,9 +13,9 @@ import java.util.List;
 
 public class UserDao implements Dao<User> {
 
-    private final DbConnection dbConnection;
+    private final DB dbConnection;
 
-    public UserDao(DbConnection dbConnection) {
+    public UserDao(DB dbConnection) {
         this.dbConnection = dbConnection;
     }
 

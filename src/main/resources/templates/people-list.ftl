@@ -19,7 +19,7 @@
 
 <div class="container mt-5">
     <div class="row">
-        <div class="col-8 offset-2">
+        <div class="col-12">
             <div class="panel panel-default user_panel">
                 <div class="panel-heading">
                     <h3 class="panel-title">User List</h3>
@@ -35,13 +35,19 @@
                                     </div>
                                 </td>
                                 <td class="align-middle">
-                                    Herbert Hoover
+                                    ${name}
                                 </td>
                                 <td class="align-middle">
-                                    Builder Sales Agent
+                                    ${job}
                                 </td>
                                 <td  class="align-middle">
-                                    Last Login:  6/10/2017<br><small class="text-muted">5 days ago</small>
+                                    <#if last_login_time??>
+                                        Last Login:  ${last_login_time}
+                                        <br>
+                                        <small class="text-muted">${last_login_time_passed}</small>
+                                    <#else>
+                                        Has not logged yet
+                                    </#if>
                                 </td>
                             </tr>
                             <tr>

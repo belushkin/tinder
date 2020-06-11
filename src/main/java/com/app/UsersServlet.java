@@ -5,6 +5,7 @@ import com.app.connection.DB;
 import com.app.dao.UserDao;
 import com.app.entities.User;
 import com.app.utils.Config;
+import com.app.utils.MyLogger;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -17,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -45,8 +49,19 @@ public class UsersServlet extends HttpServlet {
 
         User firstUser = userDao.findFirst();
 
+        // get last login time
+        LocalDateTime lastLoginTime = userDao.getLastLoginTime(firstUser);
+
         Map<String, Object> templateData = new HashMap<>();
         templateData.put("picture", firstUser.getPicture());
+        templateData.put("name", firstUser.getName());
+        templateData.put("job", firstUser.getJob());
+
+        if (lastLoginTime != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            templateData.put("last_login_time", lastLoginTime.format(formatter));
+            templateData.put("last_login_time_passed", ChronoUnit.DAYS.between(lastLoginTime, LocalDateTime.now()));
+        }
 
         PrintWriter pw = resp.getWriter();
         try (StringWriter out = new StringWriter()) {
@@ -69,6 +84,8 @@ public class UsersServlet extends HttpServlet {
     }
 
     private void initFreemarker() {
+        MyLogger.info("Init freemarker");
+
         configuration = new Configuration();
         configuration.setIncompatibleImprovements(new Version("2.3.23"));
         configuration.setClassForTemplateLoading(UsersServlet.class, "/");
@@ -76,6 +93,8 @@ public class UsersServlet extends HttpServlet {
     }
 
     private void initProperties() {
+        MyLogger.info("Init app config file");
+
         try {
             properties = Config.INSTANCE.getProperties("/config.ini");
         } catch (IOException e) {
@@ -84,6 +103,8 @@ public class UsersServlet extends HttpServlet {
     }
 
     private void initJDBCDriver() {
+        MyLogger.info("Init JDBC Driver");
+
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {

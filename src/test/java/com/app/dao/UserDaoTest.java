@@ -3,7 +3,6 @@ package com.app.dao;
 import com.app.connection.ConnectionFactory;
 import com.app.connection.DB;
 import com.app.entities.User;
-import com.app.utils.Config;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +17,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
-import java.util.Properties;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserDaoTest {
@@ -82,12 +80,6 @@ public class UserDaoTest {
 
         // then
         Assert.assertNull(user);
-
-//        Properties properties = Config.INSTANCE.getProperties("/config.ini");
-//        DB db = new DB(new ConnectionFactory(properties));
-//        UserDao userDao = new UserDao(db);
-//
-//        System.out.println(userDao.findById(13));
     }
 
     @Test

@@ -54,3 +54,4 @@ UPDATE users SET next = 14 WHERE id = 13;
 UPDATE users SET next = 15 WHERE id = 14;
 UPDATE users SET next = 11 WHERE id = 15;
 
+INSERT INTO messages (text, from_user_id, to_user_id) VALUES ('ku', 11, 12);

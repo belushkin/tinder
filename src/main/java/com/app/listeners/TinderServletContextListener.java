@@ -3,7 +3,9 @@ package com.app.listeners;
 import com.app.connection.ConnectionFactory;
 import com.app.connection.DB;
 import com.app.controllers.UsersServlet;
+import com.app.dao.MessageDao;
 import com.app.dao.UserDao;
+import com.app.services.MessageService;
 import com.app.services.UserService;
 import com.app.utils.Config;
 import com.app.utils.MyLogger;
@@ -22,7 +24,6 @@ public class TinderServletContextListener implements ServletContextListener {
 
     private Configuration configuration;
     private Properties properties;
-    private UserService userService;
 
     @Override
     public void contextInitialized(ServletContextEvent event)
@@ -38,9 +39,13 @@ public class TinderServletContextListener implements ServletContextListener {
 
         // Init db connection and services
         DB db = new DB(new ConnectionFactory(properties));
-        userService = new UserService(new UserDao(db));
+
+        UserService userService = new UserService(new UserDao(db));
+        MessageService messageService = new MessageService(new MessageDao(db));
 
         context.setAttribute("userService", userService);
+        context.setAttribute("messageService", messageService);
+
         context.setAttribute("freemarker", configuration);
     }
 

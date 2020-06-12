@@ -32,7 +32,7 @@
                             <a href="/tinder/liked?user_id=${user.id}" class="btn btn-outline-danger btn-block"><span class="fa fa-times"></span> Dislike</a>
                         </div>
                         <div class="col-12 col-lg-6">
-                            <a href="/tinder/message?user_id=${user.id}" class="btn btn-outline-success btn-block"><span class="fa fa-heart"></span> Message</a>
+                            <a href="/tinder/messages?user_id=${user.id}" class="btn btn-outline-success btn-block"><span class="fa fa-heart"></span> Message</a>
                         </div>
                         <!--/col-->
                     </div>

@@ -31,14 +31,7 @@ public class UserDao implements Dao<User> {
         try {
             ResultSet resultSet = this.db.executeQuery(sql);
             while (resultSet.next()) {
-                users.add(new User(
-                        resultSet.getInt("id"),
-                        resultSet.getString("name"),
-                        resultSet.getString("picture"),
-                        resultSet.getString("job"),
-                        resultSet.getString("username"),
-                        resultSet.getInt("next")
-                ));
+                users.add(hydrate(resultSet));
             }
             return users;
         } catch (SQLException ex) {
@@ -139,7 +132,8 @@ public class UserDao implements Dao<User> {
         }
     }
 
-    private User hydrate(ResultSet resultSet) throws SQLException {
+    @Override
+    public User hydrate(ResultSet resultSet) throws SQLException {
         return new User(
                 resultSet.getInt("id"),
                 resultSet.getString("name"),

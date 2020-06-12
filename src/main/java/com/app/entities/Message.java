@@ -1,9 +1,29 @@
 package com.app.entities;
 
+import java.time.LocalDateTime;
+
 public class Message {
+    private int id;
     private String text;
     private User from;
     private User to;
+    private LocalDateTime localDateTime;
+
+    public Message(int id, String text, User from, User to, LocalDateTime localDateTime) {
+        this.id = id;
+        this.text = text;
+        this.from = from;
+        this.to = to;
+        this.localDateTime = localDateTime;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getText() {
         return text;
@@ -27,5 +47,13 @@ public class Message {
 
     public void setTo(User to) {
         this.to = to;
+    }
+
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
+    }
+
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
     }
 }

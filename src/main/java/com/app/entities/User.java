@@ -21,6 +21,12 @@ public class User {
         this.next = next;
     }
 
+    public User(int id, String name, String picture) {
+        this.id = id;
+        this.name = name;
+        this.picture = picture;
+    }
+
     public int getId() {
         return id;
     }

@@ -19,6 +19,7 @@ public class LogoutServlet extends HttpServlet {
         MyLogger.info("Init logout servlet");
     }
 
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         HttpSession session = req.getSession();
@@ -27,8 +28,4 @@ public class LogoutServlet extends HttpServlet {
         requestDispatcher.forward(req, resp);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
-
-    }
 }

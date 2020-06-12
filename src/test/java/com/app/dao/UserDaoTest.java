@@ -28,6 +28,8 @@ public class UserDaoTest {
     private Statement mockStatement;
     @Mock
     private ConnectionFactory connectionFactory;
+    @Mock
+    private User user;
 
     @Test
     public void test_find_user_by_id_with_mocked_result_set() throws Exception {
@@ -104,7 +106,7 @@ public class UserDaoTest {
         ).
                 thenReturn(resultSetMock);
 
-        List<User> users = userDao.getAll();
+        List<User> users = userDao.getAllLikedProfilesByUser(user);
 
         // then
         Assert.assertEquals("Natasha", users.get(0).getName());

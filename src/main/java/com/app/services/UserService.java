@@ -14,8 +14,8 @@ public class UserService {
         this.userDao = userDao;
     }
 
-    public List<User> getAll() {
-        return userDao.getAll();
+    public List<User> getAllLikedProfilesByUser(User user) {
+        return userDao.getAllLikedProfilesByUser(user);
     }
 
     public User findById(int id) {

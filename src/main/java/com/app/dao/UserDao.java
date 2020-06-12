@@ -19,12 +19,15 @@ public class UserDao implements Dao<User> {
         this.db = db;
     }
 
-    @Override
-    public List<User> getAll() {
-        MyLogger.info("Find all users");
+    public List<User> getAllLikedProfilesByUser(User user) {
+        MyLogger.info("Find all liked profiles for user: " + user.getUsername());
 
         List<User> users = new ArrayList<>();
-        String sql = "SELECT * FROM users";
+        String sql = String.format(
+                "select u.* from users u INNER JOIN liked l ON u.id = l.user_liked_id WHERE l.user_id = %s AND l.value = 'yes'",
+                user.getId()
+        );
+
         try {
             ResultSet resultSet = this.db.executeQuery(sql);
             while (resultSet.next()) {
@@ -59,21 +62,6 @@ public class UserDao implements Dao<User> {
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
-    }
-
-    @Override
-    public void add(User user) {
-        MyLogger.info("Adding new user to the database : " + user.getName());
-
-        String sql = String.format(
-                "INSERT INTO users (name, job, username, password, picture) VALUES ('%s', '%s', '%s', md5('%s'), '%s')",
-                user.getName(),
-                user.getJob(),
-                user.getUsername(),
-                user.getPassword(),
-                user.getPicture()
-        );
-        this.db.execute(sql);
     }
 
     public void like(User who, User whom, String value) {

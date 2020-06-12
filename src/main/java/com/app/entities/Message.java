@@ -1,6 +1,8 @@
 package com.app.entities;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Message {
     private int id;
@@ -15,6 +17,17 @@ public class Message {
         this.from = from;
         this.to = to;
         this.localDateTime = localDateTime;
+    }
+
+    public String timePassed() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd HH:mm");
+        long minutes = ChronoUnit.MINUTES.between(localDateTime, LocalDateTime.now());
+
+        if (minutes < 60) {
+            return minutes + " min";
+        }
+
+        return localDateTime.format(formatter);
     }
 
     public int getId() {

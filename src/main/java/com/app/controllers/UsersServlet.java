@@ -51,7 +51,6 @@ public class UsersServlet extends HttpServlet {
 
         // get last login time
         LocalDateTime lastLoginTime = userService.getLastLoginTime(user);
-        System.out.println(lastLoginTime);
 
         Map<String, Object> templateData = new HashMap<>();
         templateData.put("picture", user.getPicture());

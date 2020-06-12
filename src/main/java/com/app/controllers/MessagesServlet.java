@@ -1,5 +1,6 @@
 package com.app.controllers;
 
+import com.app.entities.Message;
 import com.app.entities.User;
 import com.app.services.MessageService;
 import com.app.services.UserService;
@@ -8,7 +9,6 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -47,10 +47,14 @@ public class MessagesServlet extends HttpServlet {
 
         Template template = freemarker.getTemplate("templates/chat.ftl");
 
-//        List<User> likedUsers = userService.getAllLikedProfilesByUser(current);
+        List<Message> messages = messageService.getMessages(current, messageUser);
 
+        System.out.println(messages);
         Map<String, Object> templateData = new HashMap<>();
-//        templateData.put("users", likedUsers);
+        templateData.put("messages", messages);
+        templateData.put("currentUserId", current.getId());
+        templateData.put("messageUserName", messageUser.getName());
+        templateData.put("messageUserId", messageUser.getId());
 
         PrintWriter pw = resp.getWriter();
         try (StringWriter out = new StringWriter()) {

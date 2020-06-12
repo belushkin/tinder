@@ -23,13 +23,12 @@ public class MessageDao implements Dao<Message> {
 
         List<Message> messages = new ArrayList<>();
         String sql = String.format("SELECT " +
-                "m.*, uf.id as ufid, uf.name as ufname, uf.picture as ufpicture, ut.id as utid, ut.name as utname, ut.picture as utpicture" +
+                "m.*, uf.id as ufid, uf.name as ufname, uf.picture as ufpicture, ut.id as utid, ut.name as utname, ut.picture as utpicture " +
                 "FROM messages m " +
                 "JOIN users uf ON m.from_user_id = uf.id " +
                 "JOIN users ut ON m.to_user_id = ut.id " +
-                "WHERE m.from_user_id = %s AND m.to_user_id = %s" +
-                "ORDER BY m.timestamp DESC", me.getId(), you.getId());
-
+                "WHERE m.from_user_id = %s AND m.to_user_id = %s OR m.from_user_id = %s AND m.to_user_id = %s " +
+                "ORDER BY m.timestamp DESC", me.getId(), you.getId(), you.getId(), me.getId());
         try {
             ResultSet resultSet = this.db.executeQuery(sql);
             while (resultSet.next()) {

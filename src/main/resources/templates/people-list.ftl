@@ -24,8 +24,8 @@
             <div class="panel panel-default user_panel">
                 <div class="panel-heading">
                     <h3 class="panel-title d-inline">User List</h3>
-                    <a href="/tinder/liked" class="float-right">See liked girls</a>
-                    <a href="/tinder/logout" class="float-right">Logout</a>
+                    <a href="/tinder/logout" class="float-right">Logout (${current_user_name})</a>
+                    <a href="/tinder/liked" class="float-right mr-5">See liked girls</a>
                 </div>
                 <div class="panel-body">
                     <div class="table-container">
@@ -38,7 +38,7 @@
                                     </div>
                                 </td>
                                 <td class="align-middle">
-                                    ${name}
+                                    ${name} (${username})
                                 </td>
                                 <td class="align-middle">
                                     ${job}
@@ -47,7 +47,7 @@
                                     <#if last_login_time??>
                                         Last Login:  ${last_login_time}
                                         <br>
-                                        <small class="text-muted">${last_login_time_passed}</small>
+                                        <small class="text-muted">${last_login_time_passed} days passed</small>
                                     <#else>
                                         Has not logged yet
                                     </#if>
@@ -59,8 +59,8 @@
                                         <form action="" method="post">
                                             <input type="hidden" name="action" value="submit" />
                                             <input type="hidden" name="user_id" value="${user_id}" />
-                                            <input type="submit" value="1" name="submit" class="btn btn-success">
-                                            <input type="submit" value="0" name="submit" class="btn btn-danger">
+                                            <input type="submit" value="yes" name="submit" class="btn btn-success">
+                                            <input type="submit" value="no" name="submit" class="btn btn-danger">
                                         </form>
                                     </div>
                                 </td>

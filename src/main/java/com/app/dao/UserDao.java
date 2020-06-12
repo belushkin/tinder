@@ -112,7 +112,7 @@ public class UserDao implements Dao<User> {
         try {
             ResultSet resultSet = this.db.executeQuery(sql);
             if (resultSet.next()) {
-                resultSet.getTimestamp("timestamp").toLocalDateTime();
+                return resultSet.getTimestamp("timestamp").toLocalDateTime();
             }
             return null;
         } catch (SQLException ex) {

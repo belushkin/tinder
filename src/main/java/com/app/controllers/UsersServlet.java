@@ -40,9 +40,10 @@ public class UsersServlet extends HttpServlet {
         HttpSession session = req.getSession();
 
         User user = userService.getUserByArgId(req.getParameter("id"));
+        User current = userService.findById((Integer) session.getAttribute("user_id"));
 
         // Preventing voting by current user for yourself
-        if (user.getId() == (Integer) session.getAttribute("user_id")) {
+        if (user.getId() == current.getId()) {
             user = userService.findById(user.getNext());
         }
 
@@ -50,12 +51,15 @@ public class UsersServlet extends HttpServlet {
 
         // get last login time
         LocalDateTime lastLoginTime = userService.getLastLoginTime(user);
+        System.out.println(lastLoginTime);
 
         Map<String, Object> templateData = new HashMap<>();
         templateData.put("picture", user.getPicture());
         templateData.put("name", user.getName());
+        templateData.put("username", user.getUsername());
         templateData.put("job", user.getJob());
         templateData.put("user_id", user.getId());
+        templateData.put("current_user_name", current.getName());
 
         if (lastLoginTime != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

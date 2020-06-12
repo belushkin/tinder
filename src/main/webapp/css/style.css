@@ -94,8 +94,8 @@ i {  vertical-align: middle; }
 }
 
 .img-circle {
-  border-radius: 50%;
-  width: 70px;
+  border-radius: 30%;
+  width: 300px;
 }
 
 .chat

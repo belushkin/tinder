@@ -4,6 +4,7 @@ import com.app.connection.ConnectionFactory;
 import com.app.connection.DB;
 import com.app.dao.UserDao;
 import com.app.entities.User;
+import com.app.services.UserService;
 import com.app.utils.Config;
 import com.app.utils.MyLogger;
 import freemarker.template.Configuration;
@@ -11,6 +12,7 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.Version;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +32,7 @@ public class UsersServlet extends HttpServlet {
 
     private Configuration configuration;
     private Properties properties;
-    private UserDao userDao;
+    private UserService userService;
 
     @Override
     public void init() {
@@ -38,24 +40,25 @@ public class UsersServlet extends HttpServlet {
         initFreemarker();
         initProperties();
 
-        // init dao
+        // init user service
         DB db = new DB(new ConnectionFactory(properties));
-        userDao = new UserDao(db);
+        userService = new UserService(new UserDao(db));
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        User user = userService.getUserByArgId(req.getParameter("id"));
         Template template = configuration.getTemplate("templates/people-list.ftl");
 
-        User firstUser = userDao.findFirst();
 
         // get last login time
-        LocalDateTime lastLoginTime = userDao.getLastLoginTime(firstUser);
+        LocalDateTime lastLoginTime = userService.getLastLoginTime(user);
 
         Map<String, Object> templateData = new HashMap<>();
-        templateData.put("picture", firstUser.getPicture());
-        templateData.put("name", firstUser.getName());
-        templateData.put("job", firstUser.getJob());
+        templateData.put("picture", user.getPicture());
+        templateData.put("name", user.getName());
+        templateData.put("job", user.getJob());
+        templateData.put("user_id", user.getId());
 
         if (lastLoginTime != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -75,12 +78,14 @@ public class UsersServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String submit = req.getParameter("submit");
         String userId = req.getParameter("user_id");
 
-        System.out.println(submit);
-        System.out.println(userId);
+        User user = userService.findById(Integer.parseInt(userId));
+        if (user != null) {
+            resp.sendRedirect("/tinder/users?id="+user.getNext());
+        }
     }
 
     private void initFreemarker() {

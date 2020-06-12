@@ -58,6 +58,17 @@ public class UserDao implements Dao<User> {
         this.db.execute(sql);
     }
 
+    public void like(User who, User whom) {
+        MyLogger.info("User " + who.getName() + " liked user " + whom.getUsername());
+
+        String sql = String.format(
+                "INSERT INTO liked (user_id, user_liked_id) VALUES ('%s', '%s')",
+                who.getId(),
+                whom.getId()
+        );
+        this.db.execute(sql);
+    }
+
     public void addLastLoginTime(User user) {
         MyLogger.info("Adding last login time for user : " + user.getName());
 

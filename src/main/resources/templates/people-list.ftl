@@ -55,7 +55,7 @@
                                     <div>
                                         <form action="" method="post">
                                             <input type="hidden" name="action" value="submit" />
-                                            <input type="hidden" name="user_id" value="1" />
+                                            <input type="hidden" name="user_id" value="${user_id}" />
                                             <input type="submit" value="yes" name="submit" class="btn btn-success">
                                             <input type="submit" value="no" name="submit" class="btn btn-danger">
                                         </form>

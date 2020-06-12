@@ -29,4 +29,16 @@ public class UserService {
     public void addLastLoginTime(User user) {
         userDao.addLastLoginTime(user);
     }
+
+    public User getUserByArgId(String userId) {
+        if (userId == null) {
+            return userDao.findFirst();
+        }
+
+        User user = userDao.findById(Integer.parseInt(userId));
+        if (user == null) {
+            return userDao.findFirst();
+        }
+        return user;
+    }
 }

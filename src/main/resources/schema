@@ -35,7 +35,8 @@ ALTER TABLE users ADD COLUMN timestamp timestamp default current_timestamp;
 ALTER TABLE users ALTER COLUMN picture TYPE varchar(1000);
 ALTER TABLE users ALTER COLUMN password TYPE varchar(100);
 ALTER TABLE users ADD COLUMN next integer NOT NULL DEFAULT 0;
-
+ALTER TABLE liked ADD COLUMN value integer NOT NULL DEFAULT 0;
+ALTER TABLE liked ADD COLUMN timestamp timestamp default current_timestamp;
 
 INSERT INTO users (name, job, username, password, picture)
 VALUES

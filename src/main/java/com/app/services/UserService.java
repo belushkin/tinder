@@ -41,4 +41,13 @@ public class UserService {
         }
         return user;
     }
+
+    public User isValid(String username, String password) {
+        return userDao.isValid(username, password);
+    }
+
+    public void like(User who, User whom, String value) {
+        userDao.like(who, whom, value);
+    }
+
 }

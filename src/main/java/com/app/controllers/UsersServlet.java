@@ -1,22 +1,17 @@
-package com.app;
+package com.app.controllers;
 
-import com.app.connection.ConnectionFactory;
-import com.app.connection.DB;
-import com.app.dao.UserDao;
 import com.app.entities.User;
 import com.app.services.UserService;
-import com.app.utils.Config;
 import com.app.utils.MyLogger;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import freemarker.template.Version;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -25,31 +20,33 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
-@WebServlet(name = "usersServlet", urlPatterns = {"/users"})
 public class UsersServlet extends HttpServlet {
 
-    private Configuration configuration;
-    private Properties properties;
+    private Configuration freemarker;
     private UserService userService;
 
     @Override
     public void init() {
-        initJDBCDriver();
-        initFreemarker();
-        initProperties();
+        MyLogger.info("Init users servlet");
 
-        // init user service
-        DB db = new DB(new ConnectionFactory(properties));
-        userService = new UserService(new UserDao(db));
+        userService = (UserService) getServletContext().getAttribute("userService");
+        freemarker = (Configuration) getServletContext().getAttribute("freemarker");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        User user = userService.getUserByArgId(req.getParameter("id"));
-        Template template = configuration.getTemplate("templates/people-list.ftl");
 
+        HttpSession session = req.getSession();
+
+        User user = userService.getUserByArgId(req.getParameter("id"));
+
+        // Preventing voting by current user for yourself
+        if (user.getId() == (Integer) session.getAttribute("user_id")) {
+            user = userService.findById(user.getNext());
+        }
+
+        Template template = freemarker.getTemplate("templates/people-list.ftl");
 
         // get last login time
         LocalDateTime lastLoginTime = userService.getLastLoginTime(user);
@@ -82,38 +79,10 @@ public class UsersServlet extends HttpServlet {
         String submit = req.getParameter("submit");
         String userId = req.getParameter("user_id");
 
-        User user = userService.findById(Integer.parseInt(userId));
-        if (user != null) {
-            resp.sendRedirect("/tinder/users?id="+user.getNext());
-        }
-    }
-
-    private void initFreemarker() {
-        MyLogger.info("Init freemarker");
-
-        configuration = new Configuration();
-        configuration.setIncompatibleImprovements(new Version("2.3.23"));
-        configuration.setClassForTemplateLoading(UsersServlet.class, "/");
-        configuration.setDefaultEncoding("UTF-8");
-    }
-
-    private void initProperties() {
-        MyLogger.info("Init app config file");
-
-        try {
-            properties = Config.INSTANCE.getProperties("/config.ini");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void initJDBCDriver() {
-        MyLogger.info("Init JDBC Driver");
-
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        HttpSession session = req.getSession();
+        User current = userService.findById((Integer) session.getAttribute("user_id"));
+        User voted = userService.findById(Integer.parseInt(userId));
+        userService.like(current, voted, submit);
+        resp.sendRedirect("/tinder/users?id="+voted.getNext());
     }
 }

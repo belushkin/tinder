@@ -4,37 +4,9 @@
     <title>Start Page</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
-<body>
-<h1>Hello Servlet!</h1>
-<br>
-
-
-<h1>POST</h1>
-<form method="post" action="myRestApiServlet">
-    <p>
-        Username:<br>
-        <input type="text" name="name"/>
-    </p>
-    <p>
-        Age:<br>
-        <input type="text" name="age"/>
-    </p>
-
-    <input type="submit" name="POST"/>
-</form>
-
-<br/><br/><br/>
-<h1>GET</h1>
-<form method="get" action="myRestApiServlet">
-    <p>
-        Username:<br>
-        <input type="text" name="name"/>
-    </p>
-    <p>
-        Age:<br>
-        <input type="text" name="age"/>
-    </p>
-    <input type="submit" name="GET"/>
-</form>
-</body>
+    <body>
+        <script>
+            window.location.replace("/tinder/users");
+        </script>
+    </body>
 </html>

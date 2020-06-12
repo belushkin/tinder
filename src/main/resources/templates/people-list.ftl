@@ -9,8 +9,9 @@
 
     <title>People list</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="css/style.css">
@@ -22,7 +23,9 @@
         <div class="col-12">
             <div class="panel panel-default user_panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title">User List</h3>
+                    <h3 class="panel-title d-inline">User List</h3>
+                    <a href="/tinder/liked" class="float-right">See liked girls</a>
+                    <a href="/tinder/logout" class="float-right">Logout</a>
                 </div>
                 <div class="panel-body">
                     <div class="table-container">
@@ -56,8 +59,8 @@
                                         <form action="" method="post">
                                             <input type="hidden" name="action" value="submit" />
                                             <input type="hidden" name="user_id" value="${user_id}" />
-                                            <input type="submit" value="yes" name="submit" class="btn btn-success">
-                                            <input type="submit" value="no" name="submit" class="btn btn-danger">
+                                            <input type="submit" value="1" name="submit" class="btn btn-success">
+                                            <input type="submit" value="0" name="submit" class="btn btn-danger">
                                         </form>
                                     </div>
                                 </td>

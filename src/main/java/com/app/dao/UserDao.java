@@ -43,6 +43,24 @@ public class UserDao implements Dao<User> {
         }
     }
 
+    public User isValid(String username, String password) {
+        MyLogger.info("Checking is valid user with " + username + ", " + password);
+        String sql = String.format(
+                "SELECT * FROM users WHERE username = '%s' AND password = md5('%s')",
+                username,
+                password
+        );
+        try {
+            ResultSet resultSet = this.db.executeQuery(sql);
+            if (resultSet.next()) {
+                return hydrate(resultSet);
+            }
+            return null;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
     @Override
     public void add(User user) {
         MyLogger.info("Adding new user to the database : " + user.getName());
@@ -58,15 +76,22 @@ public class UserDao implements Dao<User> {
         this.db.execute(sql);
     }
 
-    public void like(User who, User whom) {
+    public void like(User who, User whom, String value) {
         MyLogger.info("User " + who.getName() + " liked user " + whom.getUsername());
 
-        String sql = String.format(
-                "INSERT INTO liked (user_id, user_liked_id) VALUES ('%s', '%s')",
+        String delete = String.format(
+                "DELETE FROM liked WHERE user_id = '%s' AND user_liked_id = '%s'",
                 who.getId(),
                 whom.getId()
         );
-        this.db.execute(sql);
+        String insert = String.format(
+                "INSERT INTO liked (user_id, user_liked_id, value) VALUES ('%s', '%s', '%s')",
+                who.getId(),
+                whom.getId(),
+                value
+        );
+        this.db.execute(delete);
+        this.db.execute(insert);
     }
 
     public void addLastLoginTime(User user) {

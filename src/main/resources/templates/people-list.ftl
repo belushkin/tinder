@@ -18,9 +18,9 @@
 </head>
 <body>
 
-<div class="container mt-5">
+<div class="container">
     <div class="row">
-        <div class="col-12">
+        <div class="col-8 offset-2"">
             <div class="panel panel-default user_panel">
                 <div class="panel-heading">
                     <h3 class="panel-title d-inline">User List</h3>

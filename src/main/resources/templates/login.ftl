@@ -1,59 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Tinder Login Form</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <style type="text/css">
-            .login-form {
-                width: 340px;
-                margin: 50px auto;
-            }
-            .login-form form {
-                margin-bottom: 15px;
-                background: #f7f7f7;
-                box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-                padding: 30px;
-            }
-            .login-form h2 {
-                margin: 0 0 15px;
-            }
-            .form-control, .btn {
-                min-height: 38px;
-                border-radius: 2px;
-            }
-            .btn {
-                font-size: 15px;
-                font-weight: bold;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="login-form">
-            <form action="/tinder/login" method="post">
-                <h2 class="text-center">Log in</h2>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="img/favicon.ico">
 
-                <#if error??>
-                    <span class="error text-danger">${error}</span>
-                </#if>
+    <title>Signin Template for Bootstrap</title>
 
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Username" required="required" name="username">
-                </div>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
-                <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Password" required="required" name="password">
-                </div>
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
 
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block">Log in</button>
-                </div>
+<body class="text-center">
+    <#if error??>
+        <span class="error text-danger">${error}</span>
+    </#if>
 
-            </form>
-        </div>
-    </body>
+    <form class="form-signin" action="/tinder/login" method="post">
+        <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="text" id="inputEmail" class="form-control" placeholder="Email address" name="username" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <p class="mt-5 mb-3 text-muted">&copy; Tinder 2018</p>
+    </form>
+</body>
 </html>

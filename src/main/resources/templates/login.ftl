@@ -17,11 +17,10 @@
 </head>
 
 <body class="text-center">
-    <#if error??>
-        <span class="error text-danger">${error}</span>
-    </#if>
-
     <form class="form-signin" action="/tinder/login" method="post">
+        <#if error??>
+            <span class="error text-danger">${error}</span>
+        </#if>
         <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
         <label for="inputEmail" class="sr-only">Email address</label>

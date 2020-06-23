@@ -9,6 +9,8 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -49,7 +51,6 @@ public class MessagesServlet extends HttpServlet {
 
         List<Message> messages = messageService.getMessages(current, messageUser);
 
-        System.out.println(messages);
         Map<String, Object> templateData = new HashMap<>();
         templateData.put("messages", messages);
         templateData.put("currentUserId", current.getId());
@@ -65,5 +66,19 @@ public class MessagesServlet extends HttpServlet {
         } catch (TemplateException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String from = req.getParameter("from");
+        String to = req.getParameter("to");
+        String message = req.getParameter("message");
+
+        User fromUser = userService.findById(Integer.parseInt(from));
+        User toUser = userService.findById(Integer.parseInt(to));
+
+        messageService.addMessage(fromUser, toUser, message);
+
+        resp.sendRedirect("/tinder/messages?user_id=" + Integer.parseInt(to));
     }
 }

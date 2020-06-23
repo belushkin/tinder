@@ -17,4 +17,9 @@ public class MessageService {
     public List<Message> getMessages(User me, User you) {
         return messageDao.getMessages(me, you);
     }
+
+    public void addMessage(User from, User to, String message) {
+        messageDao.addMessage(from, to, message);
+    }
+
 }

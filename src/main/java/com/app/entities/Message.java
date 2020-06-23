@@ -4,12 +4,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
-public class Message {
-    private int id;
-    private String text;
-    private User from;
-    private User to;
-    private LocalDateTime localDateTime;
+public final class Message {
+    private final int id;
+    private final String text;
+    private final User from;
+    private final User to;
+    private final LocalDateTime localDateTime;
 
     public Message(int id, String text, User from, User to, LocalDateTime localDateTime) {
         this.id = id;
@@ -34,39 +34,30 @@ public class Message {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getText() {
         return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
     }
 
     public User getFrom() {
         return from;
     }
 
-    public void setFrom(User from) {
-        this.from = from;
-    }
-
     public User getTo() {
         return to;
-    }
-
-    public void setTo(User to) {
-        this.to = to;
     }
 
     public LocalDateTime getLocalDateTime() {
         return localDateTime;
     }
 
-    public void setLocalDateTime(LocalDateTime localDateTime) {
-        this.localDateTime = localDateTime;
+    @Override
+    public String toString() {
+        return "Message{" +
+                "id=" + id +
+                ", text='" + text + '\'' +
+                ", from=" + from +
+                ", to=" + to +
+                ", localDateTime=" + localDateTime +
+                '}';
     }
 }

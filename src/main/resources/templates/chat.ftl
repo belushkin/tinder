@@ -52,21 +52,20 @@
                                 <#if message.from.id == currentUserId>
                                     <li class="send-msg float-right mb-2">
                                         <p class="pt-1 pb-1 pl-2 pr-2 m-0 rounded">
-                                            Hii
+                                            ${message.text?html?replace("\n", "<br>")}
                                         </p>
-                                        <span class="send-msg-time">1 min</span>
+                                        <span class="send-msg-time">${message.timePassed()}</span>
                                     </li>
                                 <#else>
                                     <li class="receive-msg float-left mb-2">
                                         <div class="sender-img">
-                                            <img src="http://nicesnippets.com/demo/image1.jpg" class="float-left">
+                                            <img src="${message.to.picture}" class="float-left">
                                         </div>
                                         <div class="receive-msg-desc float-left ml-2">
                                             <p class="bg-white m-0 pt-1 pb-1 pl-2 pr-2 rounded">
-                                                hiii <br>
-                                                How are you ?<br>
+                                                ${message.text?html?replace("\n", "<br>")}
                                             </p>
-                                            <span class="receive-msg-time">ketty, Jan 25, 6:20 PM</span>
+                                            <span class="receive-msg-time">${message.to.name}, ${message.timePassed()}</span>
                                         </div>
                                     </li>
                                 </#if>
@@ -82,7 +81,11 @@
                             <i class="fa fa-smile-o"></i>
                         </div>
                         <div class="col-md-7 pl-0">
-                            <input type="text" class="border-0" placeholder=" Send message" />
+                            <form action="/tinder/messages" method="post">
+                                <input type="hidden" value="${currentUserId}" name="from">
+                                <input type="hidden" value="${messageUserId}" name="to">
+                                <input type="text" name="message" class="border-0" placeholder="Send message" />
+                            </form>
                         </div>
                         <div class="col-md-3 text-right options-right">
                             <i class="fa fa-picture-o mr-2"></i>

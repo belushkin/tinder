@@ -28,7 +28,7 @@ public class MessageDao implements Dao<Message> {
                 "JOIN users uf ON m.from_user_id = uf.id " +
                 "JOIN users ut ON m.to_user_id = ut.id " +
                 "WHERE m.from_user_id = %s AND m.to_user_id = %s OR m.from_user_id = %s AND m.to_user_id = %s " +
-                "ORDER BY m.timestamp DESC", me.getId(), you.getId(), you.getId(), me.getId());
+                "ORDER BY m.timestamp ASC", me.getId(), you.getId(), you.getId(), me.getId());
         try {
             ResultSet resultSet = this.db.executeQuery(sql);
             while (resultSet.next()) {
@@ -60,6 +60,18 @@ public class MessageDao implements Dao<Message> {
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    public void addMessage(User from, User to, String message) {
+        MyLogger.info("User " + from.getName() + " messaged to " + to.getName());
+
+        String insert = String.format(
+                "INSERT INTO messages (text, from_user_id, to_user_id) VALUES ('%s', '%s', '%s')",
+                message,
+                from.getId(),
+                to.getId()
+        );
+        this.db.execute(insert);
     }
 
     @Override

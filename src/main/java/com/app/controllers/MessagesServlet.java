@@ -9,8 +9,6 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -69,7 +67,7 @@ public class MessagesServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String from = req.getParameter("from");
         String to = req.getParameter("to");
         String message = req.getParameter("message");
@@ -79,6 +77,6 @@ public class MessagesServlet extends HttpServlet {
 
         messageService.addMessage(fromUser, toUser, message);
 
-        resp.sendRedirect("/tinder/messages?user_id=" + Integer.parseInt(to));
+        resp.sendRedirect("/messages?user_id=" + Integer.parseInt(to));
     }
 }

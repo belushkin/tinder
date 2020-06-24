@@ -81,7 +81,7 @@
                             <i class="fa fa-smile-o"></i>
                         </div>
                         <div class="col-md-7 pl-0">
-                            <form action="/tinder/messages" method="post">
+                            <form action="/messages" method="post">
                                 <input type="hidden" value="${currentUserId}" name="from">
                                 <input type="hidden" value="${messageUserId}" name="to">
                                 <input type="text" name="message" class="border-0" placeholder="Send message" />

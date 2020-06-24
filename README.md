@@ -18,6 +18,9 @@ sudo systemctl status tomcat
 psql -h database-1.cl2n834aix67.us-east-1.rds.amazonaws.com -U postgres
 LhlyOD1JvL2XnLHO2xoE
 
+psql -h aa12ctchocsiwsm.cl2n834aix67.us-east-1.rds.amazonaws.com -U postgres
+LhlyOD1JvL2XnLHO2xoE
+
 PostgreSQL show tables using psql
 \dt
 
@@ -30,3 +33,8 @@ Connect to database
 Expanded view:
 \x
 select * from users;
+
+pg_dump -h database-1.cl2n834aix67.us-east-1.rds.amazonaws.com -U postgres tinder > dump.sql
+
+psql aa12ctchocsiwsm.cl2n834aix67.us-east-1.rds.amazonaws.com -U postgres tinder < dump.sql
+

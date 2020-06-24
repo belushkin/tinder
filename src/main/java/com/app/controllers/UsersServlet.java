@@ -86,6 +86,6 @@ public class UsersServlet extends HttpServlet {
         User current = userService.findById((Integer) session.getAttribute("user_id"));
         User voted = userService.findById(Integer.parseInt(userId));
         userService.like(current, voted, submit);
-        resp.sendRedirect("/tinder/users?id="+voted.getNext());
+        resp.sendRedirect("/users?id="+voted.getNext());
     }
 }

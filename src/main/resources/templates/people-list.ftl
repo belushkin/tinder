@@ -24,8 +24,8 @@
             <div class="panel panel-default user_panel">
                 <div class="panel-heading">
                     <h3 class="panel-title d-inline">User List</h3>
-                    <a href="/tinder/logout" class="float-right">Logout (${current_user_name})</a>
-                    <a href="/tinder/liked" class="float-right mr-5">See liked girls</a>
+                    <a href="/logout" class="float-right">Logout (${current_user_name})</a>
+                    <a href="/liked" class="float-right mr-5">See liked girls</a>
                 </div>
                 <div class="panel-body">
                     <div class="table-container">

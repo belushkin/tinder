@@ -17,7 +17,7 @@
 </head>
 
 <body class="text-center">
-    <form class="form-signin" action="/tinder/login" method="post">
+    <form class="form-signin" action="/login" method="post">
         <#if error??>
             <span class="error text-danger">${error}</span>
         </#if>

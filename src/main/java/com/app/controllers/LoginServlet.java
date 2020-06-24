@@ -61,7 +61,7 @@ public class LoginServlet extends HttpServlet {
             // Storing last login time
             userService.addLastLoginTime(user);
 
-            resp.sendRedirect("/tinder/users");
+            resp.sendRedirect("/users");
         } else {
             Template template = freemarker.getTemplate("templates/login.ftl");
             Map<String, Object> templateData = new HashMap<>();

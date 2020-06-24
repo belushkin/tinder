@@ -13,7 +13,7 @@ Application must allow to:
 
 ## Contributors
 | [Max Belushkin](https://github.com/belushkin) |
-| :---: | :---: |
+| :---: |
 | ![](./assets/img/image_5.png) |
 
 - @belushkin

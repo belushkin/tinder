@@ -21,7 +21,7 @@
         <#if error??>
             <span class="error text-danger">${error}</span>
         </#if>
-        <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <img class="mb-4" src="https://getbootstrap.com/docs/4.4/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="text" id="inputEmail" class="form-control" placeholder="Email address" name="username" required autofocus>

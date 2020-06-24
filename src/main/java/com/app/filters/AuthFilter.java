@@ -23,7 +23,7 @@ public class AuthFilter implements Filter {
         HttpSession session = req.getSession(false);
 
         if(session == null){
-            resp.sendRedirect("/tinder/login");
+            resp.sendRedirect("/login");
         } else{
             filterChain.doFilter(servletRequest, servletResponse);
         }
